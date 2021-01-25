@@ -1,0 +1,25 @@
+.search-bar-dropdown {
+  width: 1000px;
+  margin-left: 22%;
+  background: #888;
+  border-radius: 10px;
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.3);
+}
+.allStories {
+  display: flex;
+  flex-direction: column;
+}
+.storyList1 {
+  background-color: pink;
+  padding: 10px;
+  margin-top: 60px;
+  margin-bottom: 20px;
+  width: 800px;
+  height: 100px;
+  border-radius: 20px;
+  text-align: left;
+  justify-content: space-around;
+  margin-left: 26%;
+  font-size: 25px;
+  border: 3px solid #000000;
+}
