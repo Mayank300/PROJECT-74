@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, ImageBackground, StyleSheet, TouchableOpacity,KeyboardAvoidingView } from 'react-native'
+import {View, Text, ImageBackground, StyleSheet, TouchableOpacity,KeyboardAvoidingView, FlatList } from 'react-native'
 import { SearchBar } from 'react-native-elements';
 import '../ReadStory.css';
 import db from '../config';
@@ -11,39 +11,30 @@ export default class ReadStory extends React.Component {
         super(props);
         this.state = {
           search: '',
-          readstory: {
-            title: '',
-            author: '',
-            content: '',
-          }
+          allStories:[]
         };
-        this.listname1 = db
-          .collection("readstory")
-          .doc("RS001")
-          .onSnapshot( doc => {
-            this.setState({
-              readstory: {
-                title: doc.data().title,
-                author: doc.data().author,
-                content: doc.data().content
-              }
-            })
-        });
     }
 
-    updateSearch = (search) => {
-        this.setState({ search });
-    };
+    componentDidMount(){
+      this.retrieveStories()
+    }
 
-    // retriveStories = async () => {
-    //   const bookRef = await db
-    //     .collection("readstory")
-    //     // .doc()
-    //     .where("author", "==", this.state.text)
-    //     .get();
-    //     console.log(this.state.text);
-    //     console.log(bookRef);
-    // };
+    retrieveStories=()=>{
+      try {
+        var allStories= []
+        var readstory = db.collection("readstory")
+          .get().then((querySnapshot)=> {
+            querySnapshot.forEach((doc)=> {
+                allStories.push(doc.data())
+                console.log('story is visible',allStories)
+            })
+            this.setState({allStories})
+          })
+      }
+      catch (error) {
+        console.log(error);
+      }
+    };
 
     render() {
       const { search } = this.state;
@@ -53,21 +44,29 @@ export default class ReadStory extends React.Component {
           <KeyboardAvoidingView behavior="padding" style={styles.container}>
             <Text style={styles.headers}>READ STORY</Text>
             <div className="search-bar-dropdown">
-                <SearchBar
-                    placeholder="Type Here..."
-                    onChangeText={this.updateSearch}
-                    value={search}
-                />
+              <SearchBar
+                placeholder="Search Story"
+                onChangeText= {(text)=>{
+                    this.setState({
+                        title: text
+                    })
+                }}
+                placeholderTextColor='white'
+                value={this.state.title}
+              />
             </div>
-            <div className="allStories">
-              <div className="storyList1">
-                <TouchableOpacity onPress={this.retriveStories}>
-                  <Text className="buttonText"> Title: {this.state.readstory.title} </Text>
-                  <Text className="buttonText"> Author: {this.state.readstory.author} </Text>
-                  <Text className="buttonText"> Content: {this.state.readstory.content} </Text>
-                </TouchableOpacity>
-              </div>
-            </div>
+            <View>
+              <FlatList
+                data={this.state.allStories}
+                renderItem={({ item }) => (
+                  <View style={styles.itemContainer}>
+                    <Text>Title: {item.title}</Text>
+                    <Text>Author : {item.author}</Text>
+                  </View>
+                )}
+                keyExtractor={(item, index) => index.toString()}
+              />
+            </View>
           </KeyboardAvoidingView>
           </ImageBackground> 
         </View>
@@ -102,5 +101,15 @@ const styles = StyleSheet.create({
   },
   searchstyle:{
     width: '100px',
+  },
+  itemContainer: {
+    marginTop: '20px',
+    height: 80,
+    width:'70%',
+    borderWidth: 2,
+    borderColor: 'pink',
+    justifyContent: 'center',
+    alignSelf: 'center',
+    backgroundColor: 'white'
   },
 });
