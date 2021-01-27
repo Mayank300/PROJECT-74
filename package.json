@@ -5,14 +5,18 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "eject": "expo eject"
+    "eject": "expo eject",
+    "deploy": "gh-pages -d web-build",
+    "predeploy": "expo build:web"
   },
+  "homepage": "http://Mayank300.github.io/PROJECT-74",
   "dependencies": {
     "expo": "~40.0.0",
     "expo-barcode-scanner": "^10.0.0",
     "expo-permissions": "^11.0.0",
     "expo-status-bar": "~1.0.3",
     "firebase": "^8.2.4",
+    "gh-pages": "^3.1.0",
     "react": "16.13.1",
     "react-app": "^1.1.2",
     "react-dom": "16.13.1",
@@ -22,6 +26,7 @@
     "react-native-paper": "^4.7.1",
     "react-native-reanimated": "^1.13.2",
     "react-native-screens": "^2.15.2",
+    "react-native-vector-icons": "^8.0.0",
     "react-native-web": "~0.13.12",
     "react-navigation": "^4.4.3",
     "react-navigation-tabs": "^2.10.1"
