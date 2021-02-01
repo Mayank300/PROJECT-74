@@ -16,20 +16,20 @@ export default class WriteStory extends React.Component{
     };
   }
 
-  handleTitle(event) {
-    this.setState({title: event.target.value});
-    console.log("title is working");
-  }
+  // handleTitle(event) {
+  //   this.setState({title: event.target.value});
+  //   console.log("title is working");
+  // }
 
-  handleAuthor(event) {
-    this.setState({author: event.target.value});
-    console.log("title is author");
-  }
+  // handleAuthor(event) {
+  //   this.setState({author: event.target.value});
+  //   console.log("title is author");
+  // }
 
-  handleContent(event) {
-    this.setState({content: event.target.value});
-    console.log("title is content");
-  }
+  // handleContent(event) {
+  //   this.setState({content: event.target.value});
+  //   console.log("title is content");
+  // }
 
   submitStory = async ()=>{
     //add a story

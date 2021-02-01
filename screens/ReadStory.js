@@ -86,7 +86,7 @@ export default class ReadStory extends React.Component {
     componentDidMount = async ()=>{
 
       if(this.search === null){
-        const query = await db.collection("readstory").limit(10).get()
+        // const query = await db.collection("readstory").limit(10).get()
         query.docs.map((doc)=>{
           this.setState({
             allStories: [],
